@@ -11,18 +11,58 @@ namespace TODO_Application
     {
         static void Main(string[] args)
         {
-            Task task = null;
-
             List<Task> taskList = new List<Task>();
 
 
-            Console.WriteLine("Welcome to the TODO APP! Add Task or enter (Q) to exit application.");
+            Console.WriteLine("Welcome to the TODO APP! Add Task or enter (Q) to stop adding items.");
 
-            int incrementer = 1;
+            taskList = AddATask(taskList);
+
+            DisplayCompleteTaskList(taskList);
+
+            Console.WriteLine("How would you like to proceed?");
+            Console.WriteLine("(1)Add More Items (2)Remove Items");
+            string userMenuChoice = Console.ReadLine().Trim();
+
+            Console.Clear();
+
+            switch (userMenuChoice)
+            {
+                case "1":
+                    //add logic
+                    taskList = AddATask(taskList);
+                    DisplayCompleteTaskList(taskList);
+
+                    break;
+                case "2":
+                    //remove logic
+                    break;
+            }
+
+
+            Console.ReadLine();
+        }
+
+        private static void DisplayCompleteTaskList(List<Task> taskList)
+        {
+            Console.Clear();
+
+            Console.WriteLine("Your complete list: ");
+            foreach (var item in taskList)
+            {
+                Console.WriteLine($"{item.TaskNumber}: {item.TaskItem}");
+            }
+
+            Console.WriteLine();
+        }
+
+        private static List<Task> AddATask(List<Task> taskList)
+        {
+            int currentItemNumber = taskList.Count + 1;
 
             while (true)
             {
-                task = new Task {TaskNumber = incrementer};
+                var task = new Task { TaskNumber = currentItemNumber };
 
                 Console.Write($"{task.TaskNumber}:  ");
                 task.TaskItem = Console.ReadLine();
@@ -34,23 +74,10 @@ namespace TODO_Application
 
                 taskList.Add(task);
 
-                incrementer++;
-
-
-
-
+                currentItemNumber++;
             }
 
-            Console.Clear();
-
-            Console.WriteLine("Your complete list: ");
-            foreach (var item in taskList)
-            {
-                Console.WriteLine($"{item.TaskNumber}: {item.TaskItem}");
-            }
-
-
-            Console.ReadLine();
+            return taskList;
         }
     }
 }
