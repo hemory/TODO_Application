@@ -1,0 +1,7 @@
+C:\Users\hphif\source\repos\TODO_Application\TODO_Application\bin\Debug\TODO_Application.exe.config
+C:\Users\hphif\source\repos\TODO_Application\TODO_Application\bin\Debug\TODO_Application.exe
+C:\Users\hphif\source\repos\TODO_Application\TODO_Application\bin\Debug\TODO_Application.pdb
+C:\Users\hphif\source\repos\TODO_Application\TODO_Application\obj\Debug\TODO_Application.csprojAssemblyReference.cache
+C:\Users\hphif\source\repos\TODO_Application\TODO_Application\obj\Debug\TODO_Application.csproj.CoreCompileInputs.cache
+C:\Users\hphif\source\repos\TODO_Application\TODO_Application\obj\Debug\TODO_Application.exe
+C:\Users\hphif\source\repos\TODO_Application\TODO_Application\obj\Debug\TODO_Application.pdb
