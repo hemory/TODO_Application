@@ -36,6 +36,16 @@ namespace TODO_Application
                     break;
                 case "2":
                     //remove logic
+                    Console.Write("Enter item number to remove: ");
+                    int itemToRemove = int.Parse(Console.ReadLine().Trim());
+
+                    foreach (var taskItem in taskList)
+                    {
+                        if (taskItem.TaskNumber == itemToRemove)
+                        {
+                            taskList.Remove(taskItem);
+                        }
+                    }
                     break;
             }
 
