@@ -5,3 +5,6 @@ C:\Users\hphif\source\repos\TODO_Application\TODO_Application\obj\Debug\TODO_App
 C:\Users\hphif\source\repos\TODO_Application\TODO_Application\obj\Debug\TODO_Application.csproj.CoreCompileInputs.cache
 C:\Users\hphif\source\repos\TODO_Application\TODO_Application\obj\Debug\TODO_Application.exe
 C:\Users\hphif\source\repos\TODO_Application\TODO_Application\obj\Debug\TODO_Application.pdb
+C:\Users\hphif\source\repos\TODO_Application\TODO_Application\bin\Debug\TranslatorService.Speech.dll
+C:\Users\hphif\source\repos\TODO_Application\TODO_Application\bin\Debug\TranslatorService.Speech.xml
+C:\Users\hphif\source\repos\TODO_Application\TODO_Application\obj\Debug\TODO_Application.csproj.CopyComplete

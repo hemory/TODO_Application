@@ -7,18 +7,30 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
+
 namespace TODO_Application
 {
     class Program
     {
         static void Main(string[] args)
         {
-            List<Task> taskList = new List<Task>();
+            string textPath = @"C:\Users\hphif\source\repos\TODO_Application\TODO_Application\TasksData.txt";
+
+
+            //loads text from file to list
+            List<Task> taskList = GetTaskFromTextFile(textPath);
 
             string welcomeString = "Welcome to the TODO APP!";
 
             PrintOutMessageLetterByLetter(welcomeString);
             Console.Clear();
+
+            PrintOutMessageLetterByLetter("Loading current list...", 200);
+
+            Console.Clear();
+
+            DisplayCompleteTaskList(taskList);
+            Console.WriteLine();
 
             Console.WriteLine("Add Task or enter (Q) to stop adding items...");
 
@@ -34,7 +46,7 @@ namespace TODO_Application
                 Console.WriteLine();
 
                 Console.WriteLine("How would you like to proceed?");
-                Console.WriteLine("(1)Add More Items (2)Remove Items (3)Exit");
+                Console.WriteLine("(1)Add More Items (2)Remove Items (3)Exit and Save");
                 string userMenuChoice = Console.ReadLine().Trim();
 
                 Console.Clear();
@@ -59,6 +71,7 @@ namespace TODO_Application
 
                         break;
                     case "3":
+                        WriteToFile(textPath, taskList);
                         endApplication = true;
                         break;
 
@@ -73,13 +86,43 @@ namespace TODO_Application
                 }
             }
 
-            string textPath = @"C:\Users\hphif\source\repos\TODO_Application\TODO_Application\TasksData.txt";
-            WriteToFile(textPath,taskList);
-            
+
+
+
 
             Console.WriteLine("Press ENTER to close application");
-            
+
             Console.ReadLine();
+        }
+
+
+
+        private static List<Task> GetTaskFromTextFile(string textPath) //todo modify this method to fit
+        {
+            //read from text file
+            string[] lines = File.ReadAllLines(textPath);
+
+
+
+
+            List<Task> taskList = new List<Task>();
+
+
+            foreach (string line in lines)
+            {
+                if (!string.IsNullOrEmpty(line))
+                {
+                    Task task = new Task();
+
+                    var taskArray = line.Split(',');
+                    task.Id = int.Parse(taskArray[0]);
+                    task.TaskItem = taskArray[1];
+
+                    taskList.Add(task);
+                }
+            }
+
+            return taskList;
         }
 
         private static void WriteToFile(string textPath, List<Task> collection)
@@ -95,10 +138,22 @@ namespace TODO_Application
 
         private static void PrintOutMessageLetterByLetter(string message)
         {
-            
+
             foreach (var letter in message)
             {
                 Thread.Sleep(100);
+                Console.Write(letter);
+            }
+
+            Console.WriteLine();
+        }
+
+        private static void PrintOutMessageLetterByLetter(string message, int threadSleepTime)
+        {
+
+            foreach (var letter in message)
+            {
+                Thread.Sleep(threadSleepTime);
                 Console.Write(letter);
             }
 
