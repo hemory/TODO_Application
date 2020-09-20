@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
@@ -49,10 +50,9 @@ namespace TODO_Application
                         break;
                     case "2":
                         //remove logic
-                        Console.Write("Enter item number to remove: ");
                         DisplayTaskListForRemoval(taskList);
                         Console.WriteLine();
-                        Console.Write("Remove Item: ");
+                        Console.Write("Remove Task #: ");
                         int itemToRemove = int.Parse(Console.ReadLine().Trim());
 
                         taskList = CompleteATask(taskList, itemToRemove);
@@ -73,10 +73,24 @@ namespace TODO_Application
                 }
             }
 
+            string textPath = @"C:\Users\hphif\source\repos\TODO_Application\TODO_Application\TasksData.txt";
+            WriteToFile(textPath,taskList);
+            
 
             Console.WriteLine("Press ENTER to close application");
-
+            
             Console.ReadLine();
+        }
+
+        private static void WriteToFile(string textPath, List<Task> collection)
+        {
+            using (StreamWriter sw = new StreamWriter(textPath))
+            {
+                foreach (var item in collection)
+                {
+                    sw.WriteLine($"{item.Id},{item.TaskItem}");
+                }
+            }
         }
 
         private static void PrintOutMessageLetterByLetter(string message)
@@ -123,8 +137,6 @@ namespace TODO_Application
         private static void DisplayTaskListForRemoval(List<Task> taskList)
         {
             Console.Clear();
-
-            Console.WriteLine("Choose number to delete task. ");
             foreach (var item in taskList)
             {
                 Console.WriteLine($"{item.Id}: {item.TaskItem}");
