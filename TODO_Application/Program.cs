@@ -18,7 +18,7 @@ namespace TODO_Application
 
             taskList = AddATask(taskList);
 
-           
+
 
             bool endApplication = false;
             while (endApplication == false)
@@ -39,7 +39,7 @@ namespace TODO_Application
                         //add logic
                         DisplayCompleteTaskList(taskList);
                         taskList = AddATask(taskList);
-                        
+
 
                         break;
                     case "2":
@@ -50,17 +50,7 @@ namespace TODO_Application
                         Console.Write("Remove Item: ");
                         int itemToRemove = int.Parse(Console.ReadLine().Trim());
 
-                        Task removedItem = null;
-
-                        foreach (var taskItem in taskList)
-                        {
-                            if (taskItem.TaskNumber == itemToRemove)
-                            {
-                                removedItem = taskItem;
-                            }
-                        }
-
-                        taskList.Remove(removedItem);
+                        taskList = RemoveAnItem(taskList, itemToRemove);
 
                         break;
                     case "3":
@@ -71,13 +61,30 @@ namespace TODO_Application
                         Console.WriteLine("Please choose a valid option.");
                         break;
 
-                } 
+                }
             }
 
 
             Console.WriteLine("Press ENTER to close application");
 
             Console.ReadLine();
+        }
+
+        private static List<Task> RemoveAnItem(List<Task> taskList, int itemToRemove)
+        {
+            Task removedItem = null;
+
+            foreach (var taskItem in taskList)
+            {
+                if (taskItem.Id == itemToRemove)
+                {
+                    removedItem = taskItem;
+                }
+            }
+
+            taskList.Remove(removedItem);
+
+            return taskList;
         }
 
         private static void DisplayCompleteTaskList(List<Task> taskList)
@@ -87,20 +94,20 @@ namespace TODO_Application
             Console.WriteLine("Your complete list: ");
             foreach (var item in taskList)
             {
-                Console.WriteLine($"{item.TaskNumber}: {item.TaskItem}");
+                Console.WriteLine($"{item.Id}: {item.TaskItem}");
             }
 
         }
 
         private static List<Task> AddATask(List<Task> taskList)
         {
-            int currentItemNumber = taskList.Count + 1;
+            //int currentItemNumber = taskList.Count + 1;
 
             while (true)
             {
-                var task = new Task { TaskNumber = currentItemNumber };
+                var task = new Task();
 
-                Console.Write($"{task.TaskNumber}:  ");
+                Console.Write($"{task.Id}:  ");
                 task.TaskItem = Console.ReadLine();
 
                 if (task.TaskItem != null && task.TaskItem.ToLower() == "q")
@@ -110,10 +117,10 @@ namespace TODO_Application
 
                 taskList.Add(task);
 
-                currentItemNumber++;
             }
 
             return taskList;
         }
+
     }
 }
