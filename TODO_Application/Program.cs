@@ -45,12 +45,12 @@ namespace TODO_Application
                     case "2":
                         //remove logic
                         Console.Write("Enter item number to remove: ");
-                        DisplayCompleteTaskList(taskList);
+                        DisplayTaskListForRemoval(taskList);
                         Console.WriteLine();
                         Console.Write("Remove Item: ");
                         int itemToRemove = int.Parse(Console.ReadLine().Trim());
 
-                        taskList = RemoveAnItem(taskList, itemToRemove);
+                        taskList = CompleteATask(taskList, itemToRemove);
 
                         break;
                     case "3":
@@ -70,7 +70,7 @@ namespace TODO_Application
             Console.ReadLine();
         }
 
-        private static List<Task> RemoveAnItem(List<Task> taskList, int itemToRemove)
+        private static List<Task> CompleteATask(List<Task> taskList, int itemToRemove)
         {
             Task removedItem = null;
 
@@ -94,6 +94,18 @@ namespace TODO_Application
             Console.WriteLine("Your complete list: ");
             foreach (var item in taskList)
             {
+                Console.WriteLine($"[] {item.TaskItem}");
+            }
+
+        }
+
+        private static void DisplayTaskListForRemoval(List<Task> taskList)
+        {
+            Console.Clear();
+
+            Console.WriteLine("Choose number to delete task. ");
+            foreach (var item in taskList)
+            {
                 Console.WriteLine($"{item.Id}: {item.TaskItem}");
             }
 
@@ -101,13 +113,11 @@ namespace TODO_Application
 
         private static List<Task> AddATask(List<Task> taskList)
         {
-            //int currentItemNumber = taskList.Count + 1;
-
             while (true)
             {
                 var task = new Task();
 
-                Console.Write($"{task.Id}:  ");
+                Console.Write("[] ");
                 task.TaskItem = Console.ReadLine();
 
                 if (task.TaskItem != null && task.TaskItem.ToLower() == "q")
