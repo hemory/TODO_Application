@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace TODO_Application
@@ -13,8 +14,12 @@ namespace TODO_Application
         {
             List<Task> taskList = new List<Task>();
 
+            string welcomeString = "Welcome to the TODO APP!";
 
-            Console.WriteLine("Welcome to the TODO APP! Add Task or enter (Q) to stop adding items.");
+            PrintOutMessageLetterByLetter(welcomeString);
+            Console.Clear();
+
+            Console.WriteLine("Add Task or enter (Q) to stop adding items...");
 
             taskList = AddATask(taskList);
 
@@ -57,6 +62,10 @@ namespace TODO_Application
                         endApplication = true;
                         break;
 
+                    case "4":
+                        //todo edit logic
+                        break;
+
                     default:
                         Console.WriteLine("Please choose a valid option.");
                         break;
@@ -70,19 +79,31 @@ namespace TODO_Application
             Console.ReadLine();
         }
 
-        private static List<Task> CompleteATask(List<Task> taskList, int itemToRemove)
+        private static void PrintOutMessageLetterByLetter(string message)
         {
-            Task removedItem = null;
+            
+            foreach (var letter in message)
+            {
+                Thread.Sleep(100);
+                Console.Write(letter);
+            }
+
+            Console.WriteLine();
+        }
+
+        private static List<Task> CompleteATask(List<Task> taskList, int taskToRemove)
+        {
+            Task completedTask = null;
 
             foreach (var taskItem in taskList)
             {
-                if (taskItem.Id == itemToRemove)
+                if (taskItem.Id == taskToRemove)
                 {
-                    removedItem = taskItem;
+                    completedTask = taskItem;
                 }
             }
 
-            taskList.Remove(removedItem);
+            taskList.Remove(completedTask);
 
             return taskList;
         }
