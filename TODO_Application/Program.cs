@@ -18,37 +18,64 @@ namespace TODO_Application
 
             taskList = AddATask(taskList);
 
-            DisplayCompleteTaskList(taskList);
+           
 
-            Console.WriteLine("How would you like to proceed?");
-            Console.WriteLine("(1)Add More Items (2)Remove Items");
-            string userMenuChoice = Console.ReadLine().Trim();
-
-            Console.Clear();
-
-            switch (userMenuChoice)
+            bool endApplication = false;
+            while (endApplication == false)
             {
-                case "1":
-                    //add logic
-                    taskList = AddATask(taskList);
-                    DisplayCompleteTaskList(taskList);
+                DisplayCompleteTaskList(taskList);
 
-                    break;
-                case "2":
-                    //remove logic
-                    Console.Write("Enter item number to remove: ");
-                    int itemToRemove = int.Parse(Console.ReadLine().Trim());
+                Console.WriteLine();
 
-                    foreach (var taskItem in taskList)
-                    {
-                        if (taskItem.TaskNumber == itemToRemove)
+                Console.WriteLine("How would you like to proceed?");
+                Console.WriteLine("(1)Add More Items (2)Remove Items (3)Exit");
+                string userMenuChoice = Console.ReadLine().Trim();
+
+                Console.Clear();
+
+                switch (userMenuChoice)
+                {
+                    case "1":
+                        //add logic
+                        DisplayCompleteTaskList(taskList);
+                        taskList = AddATask(taskList);
+                        
+
+                        break;
+                    case "2":
+                        //remove logic
+                        Console.Write("Enter item number to remove: ");
+                        DisplayCompleteTaskList(taskList);
+                        Console.WriteLine();
+                        Console.Write("Remove Item: ");
+                        int itemToRemove = int.Parse(Console.ReadLine().Trim());
+
+                        Task removedItem = null;
+
+                        foreach (var taskItem in taskList)
                         {
-                            taskList.Remove(taskItem);
+                            if (taskItem.TaskNumber == itemToRemove)
+                            {
+                                removedItem = taskItem;
+                            }
                         }
-                    }
-                    break;
+
+                        taskList.Remove(removedItem);
+
+                        break;
+                    case "3":
+                        endApplication = true;
+                        break;
+
+                    default:
+                        Console.WriteLine("Please choose a valid option.");
+                        break;
+
+                } 
             }
 
+
+            Console.WriteLine("Press ENTER to close application");
 
             Console.ReadLine();
         }
@@ -63,7 +90,6 @@ namespace TODO_Application
                 Console.WriteLine($"{item.TaskNumber}: {item.TaskItem}");
             }
 
-            Console.WriteLine();
         }
 
         private static List<Task> AddATask(List<Task> taskList)
